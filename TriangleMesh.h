@@ -69,7 +69,7 @@ class TriangleMesh
         const M3DVector3f*    getVertexPositions(void) { return pVerts; }
         const M3DVector3f*    getVertexNormals(void) { return pNorms; }
         const M3DVector2f*    getVertexTexCoords(void) { return pTexCoords; }
-        const uint32_t*       getVertexIndicies(void) { return pIndexes; }
+        const uint16_t*       getVertexIndicies(void) { return pIndexes; }
 
         inline float GetBoundingSphere(void) { return boundingSphereRadius; }
 
@@ -82,7 +82,7 @@ class TriangleMesh
         bool LoadMesh(FILE *pFile, bool bNormals = true, bool bTexCoords = true);
         
     protected:
-        uint32_t    *pIndexes;      // Array of indexes
+        uint16_t    *pIndexes;      // Array of indexes
         M3DVector3f *pVerts;        // Array of vertices
         M3DVector3f *pNorms;        // Array of normals
         M3DVector2f *pTexCoords;    // Array of texture coordinates

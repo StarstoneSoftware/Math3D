@@ -97,7 +97,7 @@ void TriangleMesh::BeginMesh(uint32_t nMaxVerts)
     
     // Allocate new blocks. In reality, the other arrays will be
     // much shorter than the index array
-    pIndexes = new uint32_t[nMaxIndexes];
+    pIndexes = new uint16_t[nMaxIndexes];
     pVerts = new M3DVector3f[nMaxIndexes];
     pNorms = new M3DVector3f[nMaxIndexes];
     pTexCoords = new M3DVector2f[nMaxIndexes];
@@ -195,7 +195,7 @@ bool TriangleMesh::SaveMesh(FILE *pFile)
         
 //    printf("Unique Verts: %d\r\nTriangles: %d\r\n\r\n", nNumVerts, nNumIndexes);
 
-    fwrite(pIndexes, sizeof(uint32_t) * nNumIndexes, 1, pFile);
+    fwrite(pIndexes, sizeof(uint16_t) * nNumIndexes, 1, pFile);
     
     // Vertex positions
     fwrite(pVerts, sizeof(M3DVector3f) * nNumVerts, 1, pFile);
@@ -225,8 +225,8 @@ bool TriangleMesh::LoadMesh(FILE *pFile, bool bNormals, bool bTexCoords)
     fread(&boundingSphereRadius, sizeof(uint32_t), 1, pFile);
     
     
-    pIndexes = new uint32_t[nNumIndexes];
-    fread(pIndexes, sizeof(uint32_t) * nNumIndexes, 1, pFile);
+    pIndexes = new uint16_t[nNumIndexes];
+    fread(pIndexes, sizeof(uint16_t) * nNumIndexes, 1, pFile);
     
     pVerts = new M3DVector3f[nNumVerts];
     fread(pVerts, sizeof(M3DVector3f) * nNumVerts, 1, pFile);
