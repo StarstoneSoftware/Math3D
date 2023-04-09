@@ -4,7 +4,7 @@
 /* 
 MIT License
 
-Copyright (c) 2007-2017 Richard S. Wright Jr.
+Copyright (c) 2007-2023 Richard S. Wright Jr.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -83,10 +83,11 @@ typedef double M3DMatrix44d[16];	// A 4 x 4 matrix, column major (doubles) - Ope
 
 ///////////////////////////////////////////////////////////////////////////////
 // Useful constants
-#define M3D_PI (3.14159265358979323846)
-#define M3D_2PI (2.0 * M3D_PI)
-#define M3D_PI_DIV_180 (0.017453292519943296)
-#define M3D_INV_PI_DIV_180 (57.2957795130823229)
+constexpr double M3D_PI = 3.14159265358979323846;
+constexpr double M3D_2PI =  2.0 * M3D_PI;
+constexpr double M3D_PI_DIV_2 =  0.5 * M3D_PI;
+constexpr double M3D_PI_DIV_180 = 0.017453292519943296;
+constexpr double M3D_INV_PI_DIV_180 = 57.2957795130823229;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -94,15 +95,16 @@ typedef double M3DMatrix44d[16];	// A 4 x 4 matrix, column major (doubles) - Ope
 // Radians are king... but we need a way to swap back and forth for programmers and presentation.
 // Leaving these as Macros instead of inline functions, causes constants
 // to be evaluated at compile time instead of run time, e.g. m3dDegToRad(90.0)
-#define m3dDegToRad(x)	((x)*M3D_PI_DIV_180)
-#define m3dRadToDeg(x)	((x)*M3D_INV_PI_DIV_180)
+constexpr auto m3dDegToRad(double x) -> double	{ return x*M3D_PI_DIV_180; }
+constexpr auto m3dRadToDeg(double x) -> double	{ return x*M3D_INV_PI_DIV_180; }
 
 // Hour angles
-#define m3dHrToDeg(x)	((x) * (1.0 * 15.0))
-#define m3dHrToRad(x)	m3dDegToRad(m3dHrToDeg(x))
+constexpr auto m3dHrToDeg(double x) -> double { return x * (1.0 * 15.0); }
 
-#define m3dDegToHr(x)	((x) / 15.0))
-#define m3dRadToHr(x)	m3dDegToHr(m3dRadToDeg(x))
+constexpr auto m3dHrToRad(double x)	-> double { return m3dDegToRad(m3dHrToDeg(x)); }
+
+constexpr auto m3dDegToHr(double x)	->double { return ((x) / 15.0); }
+constexpr auto m3dRadToHr(double x)	->double { return m3dDegToHr(m3dRadToDeg(x)); }
 
 
 // Returns the same number if it is a power of
@@ -586,6 +588,10 @@ void m3dCalculateTangentBasis(M3DVector3f vTangent, const M3DVector3f pvTriangle
 // Smoothly step between 0 and 1 between edge1 and edge 2
 double m3dSmoothStep(const double edge1, const double edge2, const double x);
 float m3dSmoothStep(const float edge1, const float edge2, const float x);
+void m3dSmoothStep(const M3DVector3f vEdge1, const M3DVector3f vEdge2, const float x, M3DVector3f vOut);
+void m3dSmoothStep(const M3DVector3d vEdge1, const M3DVector3d vEdge2, const double x, M3DVector3d vOut);
+
+
 
 /////////////////////////////////////////////////////////////////////////////
 // Planar shadow Matrix

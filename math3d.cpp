@@ -1,10 +1,10 @@
 // math3d.cpp
 // Math3D Library
 
-/* Copyright (c) 2007-2009, Richard S. Wright Jr.
+/* Copyright (c) 2007-2023, Richard S. Wright Jr.
 MIT License
 
-Copyright (c) 2007-2017 Richard S. Wright Jr.
+Copyright (c) 2007-2023 Richard S. Wright Jr.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -14,7 +14,7 @@ copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+copies or substantial portions of the source coce.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -40,7 +40,7 @@ Contact GitHub API Training Shop Blog About
 // Richard S. Wright Jr.
 
 // Most functions are in-lined... and are defined here
-#include <math3d.h>
+#include "math3d.h"
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 // Rotates an XY coordiante around the origin. Rotation angle is in degrees for convienience. Positive angles rotate
@@ -987,7 +987,76 @@ float m3dSmoothStep(const float edge1, const float edge2, const float x)
     return t * t * ( 3.0f - 2.0f * t);
     }
 	
-	
+/////////////////////////////////////////////////////////////////////////////
+// Smooth step for a vector
+void m3dSmoothStep(const M3DVector3f vEdge1, const M3DVector3f vEdge2, const float x, M3DVector3f vOut)
+{
+    float t0;
+    t0 = (x - vEdge1[0]) / (vEdge2[0] - vEdge1[0]);
+    if(t0 > 1.0f)
+        t0 = 1.0f;
+
+    if(t0 < 0.0)
+        t0 = 0.0f;
+
+    float t1;
+    t1 = (x - vEdge1[1]) / (vEdge2[1] - vEdge1[1]);
+    if(t1 > 1.0f)
+        t1 = 1.0f;
+
+    if(t1 < 0.0)
+        t1 = 0.0f;
+
+
+    float t2;
+    t2 = (x - vEdge1[2]) / (vEdge2[2] - vEdge1[2]);
+    if(t2 > 1.0f)
+        t2 = 1.0f;
+
+    if(t2 < 0.0)
+        t2 = 0.0f;
+
+
+    vOut[0] = t0 * t0 * ( 3.0f - 2.0f * t0);
+    vOut[1] = t1 * t1 * ( 3.0f - 2.0f * t1);
+    vOut[2] = t2 * t2 * ( 3.0f - 2.0f * t2);
+}
+
+
+/////////////////////////////////////////////////////////////////////////////
+// Smooth step for a vector
+void m3dSmoothStep(const M3DVector3d vEdge1, const M3DVector3d vEdge2, const float x, M3DVector3d vOut)
+{
+    double t0;
+    t0 = (x - vEdge1[0]) / (vEdge2[0] - vEdge1[0]);
+    if(t0 > 1.0)
+        t0 = 1.0;
+
+    if(t0 < 0.0)
+        t0 = 0.0;
+
+    double t1;
+    t1 = (x - vEdge1[1]) / (vEdge2[1] - vEdge1[1]);
+    if(t1 > 1.0)
+        t1 = 1.0;
+
+    if(t1 < 0.0)
+        t1 = 0.0;
+
+    double t2;
+    t2 = (x - vEdge1[2]) / (vEdge2[2] - vEdge1[2]);
+    if(t2 > 1.0)
+        t2 = 1.0;
+
+    if(t2 < 0.0)
+        t2 = 0.0;
+
+
+    vOut[0] = t0 * t0 * ( 3.0 - 2.0 * t0);
+    vOut[1] = t1 * t1 * ( 3.0 - 2.0 * t1);
+    vOut[2] = t2 * t2 * ( 3.0 - 2.0 * t2);
+}
+
 
 ///////////////////////////////////////////////////////////////////////////
 // Creae a projection to "squish" an object into the plane.
