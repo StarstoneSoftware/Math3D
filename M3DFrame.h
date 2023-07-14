@@ -45,7 +45,10 @@ class M3DFrame
     public:
 		// Default position and orientation. At the origin, looking
 		// down the positive Z axis (right handed coordinate system).
-		M3DFrame(void) {
+		M3DFrame(void) { Reset(); }
+            
+		// Add an easy reset button
+		inline void Reset(void) {
 			// At origin
             vOrigin[0] = 0.0f; vOrigin[1] = 0.0f; vOrigin[2] = 0.0f; 
 
@@ -54,7 +57,7 @@ class M3DFrame
 
 			// Forward is -Z (default OpenGL)
             vForward[0] = 0.0f; vForward[1] = 0.0f; vForward[2] = -1.0f;
-            }
+			}
 
 
         /////////////////////////////////////////////////////////////
