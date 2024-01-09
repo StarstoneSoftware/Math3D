@@ -47,9 +47,9 @@ Contact GitHub API Training Shop Blog About
 // counterclockwise around the origin. Negative angles rotate clockwise.
 void m3dPerform2DRotationOnPoint(const double inXY[2], double outXY[2], double rotDegrees)
     {
-    M3DMatrix33d mRot;
+    M3DMatrix44d mRot;
     double rotRadians = m3dRadToDeg(rotDegrees);
-    m3dRotationMatrix33(mRot, rotRadians, 0.0, 0.0, 1.0);
+    m3dRotationMatrix44(mRot, rotRadians, 0.0, 0.0, 1.0);
     M3DVector3d vIn, vOut;
     
     vIn[0] = inXY[0];
