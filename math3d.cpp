@@ -48,7 +48,7 @@ Contact GitHub API Training Shop Blog About
 void m3dPerform2DRotationOnPoint(const double inXY[2], double outXY[2], double rotDegrees)
     {
     M3DMatrix44d mRot;
-    double rotRadians = m3dRadToDeg(rotDegrees);
+    double rotRadians = m3dDegToRad(rotDegrees);
     m3dRotationMatrix44(mRot, rotRadians, 0.0, 0.0, 1.0);
     M3DVector3d vIn, vOut;
     

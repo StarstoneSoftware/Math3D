@@ -390,17 +390,17 @@ inline void m3dExtractRotationMatrix33(M3DMatrix33d dst, const M3DMatrix44d src)
 // Inject Rotation (3x3) into a full 4x4 matrix...
 inline void m3dInjectRotationMatrix44(M3DMatrix44f dst, const M3DMatrix33f src)
 	{
-	memcpy(dst, src, sizeof(float) * 4);
-	memcpy(dst + 4, src + 4, sizeof(float) * 4);
-	memcpy(dst + 8, src + 8, sizeof(float) * 4);
+	memcpy(dst, src, sizeof(float) * 3);
+	memcpy(dst + 4, src + 3, sizeof(float) * 3);
+	memcpy(dst + 8, src + 6, sizeof(float) * 3);
 	}
 
 // Ditto above for doubles
 inline void m3dInjectRotationMatrix44(M3DMatrix44d dst, const M3DMatrix33d src)
 	{
-	memcpy(dst, src, sizeof(double) * 4);
-	memcpy(dst + 4, src + 4, sizeof(double) * 4);
-	memcpy(dst + 8, src + 8, sizeof(double) * 4);
+	memcpy(dst, src, sizeof(double) * 3);
+	memcpy(dst + 4, src + 3, sizeof(double) * 3);
+	memcpy(dst + 8, src + 6, sizeof(double) * 3);
 	}
 
 ////////////////////////////////////////////////////////////////////////////////

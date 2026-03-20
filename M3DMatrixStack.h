@@ -145,7 +145,7 @@ class M3DMatrixStack
 		
 		// I've also always wanted to be able to do this
 		void PushMatrix(const M3DMatrix44f mMatrix) {
-		 	if(stackPointer < stackDepth) {
+		 	if(stackPointer < stackDepth - 1) {
 				stackPointer++;
 				m3dCopyMatrix44(pStack[stackPointer], mMatrix);
 				}

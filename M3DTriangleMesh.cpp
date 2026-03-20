@@ -79,7 +79,7 @@ M3DTriangleMesh::~M3DTriangleMesh(void)
 // of indexes that you expect. The EndMesh will clean up any uneeded
 // memory. This is far better than shreading your heap with STL containers...
 // At least that's my humble opinion.
-void M3DTriangleMesh::BeginMesh(uint32_t nMaxVerts)
+void M3DTriangleMesh::BeginMesh(uint16_t nMaxVerts)
     {
     // Just in case this gets called more than once...
     delete [] pIndexes;
@@ -116,9 +116,9 @@ void M3DTriangleMesh::AddTriangle(M3DVector3f verts[3], M3DVector3f vNorms[3], M
 		
 	
     // Search for match - triangle consists of three verts
-    for(uint32_t iVertex = 0; iVertex < 3; iVertex++)
+    for(uint16_t iVertex = 0; iVertex < 3; iVertex++)
         {
-        uint32_t iMatch = 0;
+        uint16_t iMatch = 0;
         for(iMatch = 0; iMatch < nNumVerts; iMatch++)
             {
             // We have vertexes, texture coordinates, and normals
@@ -185,9 +185,9 @@ void M3DTriangleMesh::End(void)
 bool M3DTriangleMesh::SaveMesh(FILE *pFile)
     {
     // Header contains...
-    fwrite(&nNumIndexes, sizeof(uint32_t), 1, pFile);
-    fwrite(&nNumVerts, sizeof(uint32_t), 1, pFile);
-    fwrite(&boundingSphereRadius, sizeof(uint32_t), 1, pFile);
+    fwrite(&nNumIndexes, sizeof(uint16_t), 1, pFile);
+    fwrite(&nNumVerts, sizeof(uint16_t), 1, pFile);
+    fwrite(&boundingSphereRadius, sizeof(uint16_t), 1, pFile);
         
 //    printf("Unique Verts: %d\r\nTriangles: %d\r\n\r\n", nNumVerts, nNumIndexes);
 
@@ -216,9 +216,9 @@ bool M3DTriangleMesh::SaveMesh(FILE *pFile)
 bool M3DTriangleMesh::LoadMesh(FILE *pFile, bool bNormals, bool bTexCoords)
     {
     // Read it all in
-    fread(&nNumIndexes, sizeof(uint32_t), 1, pFile);
-    fread(&nNumVerts, sizeof(uint32_t), 1, pFile);
-    fread(&boundingSphereRadius, sizeof(uint32_t), 1, pFile);
+    fread(&nNumIndexes, sizeof(uint16_t), 1, pFile);
+    fread(&nNumVerts, sizeof(uint16_t), 1, pFile);
+    fread(&boundingSphereRadius, sizeof(uint16_t), 1, pFile);
     
     
     pIndexes = new uint16_t[nNumIndexes];

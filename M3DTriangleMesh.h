@@ -54,13 +54,13 @@ class M3DTriangleMesh
         virtual ~M3DTriangleMesh(void);
         
         // Use these three functions to add triangles
-        void BeginMesh(uint32_t nMaxVerts);
+        void BeginMesh(uint16_t nMaxVerts);
         void AddTriangle(M3DVector3f verts[3], M3DVector3f vNorms[3], M3DVector2f vTexCoords[3], float epsilon = 0.0000001f);
         void End(void);
 
         // Useful for statistics
-        inline uint32_t GetIndexCount(void) { return nNumIndexes; }
-        inline uint32_t GetVertexCount(void) { return nNumVerts; }
+        inline uint16_t GetIndexCount(void) { return nNumIndexes; }
+        inline uint16_t GetVertexCount(void) { return nNumVerts; }
 
         const M3DVector3f*    getVertexPositions(void) { return pVerts; }
         const M3DVector3f*    getVertexNormals(void) { return pNorms; }
@@ -83,9 +83,9 @@ class M3DTriangleMesh
         M3DVector3f *pNorms;        // Array of normals
         M3DVector2f *pTexCoords;    // Array of texture coordinates
         
-        uint32_t nMaxIndexes;         // Maximum workspace
-        uint32_t nNumIndexes;         // Number of indexes currently used
-        uint32_t nNumVerts;           // Number of vertices actually used
+        uint16_t nMaxIndexes;         // Maximum workspace
+        uint16_t nNumIndexes;         // Number of indexes currently used
+        uint16_t nNumVerts;           // Number of vertices actually used
         
         bool   bMadeStuff;
 

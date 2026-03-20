@@ -60,7 +60,47 @@ class M3DGeometryTransform
 
 		const M3DMatrix33f& GetNormalMatrix(bool bNormalize = false)
 			{
-			m3dExtractRotationMatrix33(_mNormalMatrix, GetModelViewMatrix());
+			const M3DMatrix44f& modelView = GetModelViewMatrix();
+
+			// Build the inverse-transpose of the upper-left 3x3 so normals
+			// remain correct under non-uniform scale.
+			const float a = modelView[0];
+			const float d = modelView[1];
+			const float g = modelView[2];
+			const float b = modelView[4];
+			const float e = modelView[5];
+			const float h = modelView[6];
+			const float c = modelView[8];
+			const float f = modelView[9];
+			const float i = modelView[10];
+
+			const float c00 = (e * i) - (f * h);
+			const float c01 = -((d * i) - (f * g));
+			const float c02 = (d * h) - (e * g);
+			const float c10 = -((b * i) - (c * h));
+			const float c11 = (a * i) - (c * g);
+			const float c12 = -((a * h) - (b * g));
+			const float c20 = (b * f) - (c * e);
+			const float c21 = -((a * f) - (c * d));
+			const float c22 = (a * e) - (b * d);
+
+			const float det = (a * c00) + (b * c01) + (c * c02);
+
+			if(m3dCloseEnough(det, 0.0f, 0.000001f))
+				m3dExtractRotationMatrix33(_mNormalMatrix, modelView);
+			else
+				{
+				const float invDet = 1.0f / det;
+				_mNormalMatrix[0] = c00 * invDet;
+				_mNormalMatrix[1] = c10 * invDet;
+				_mNormalMatrix[2] = c20 * invDet;
+				_mNormalMatrix[3] = c01 * invDet;
+				_mNormalMatrix[4] = c11 * invDet;
+				_mNormalMatrix[5] = c21 * invDet;
+				_mNormalMatrix[6] = c02 * invDet;
+				_mNormalMatrix[7] = c12 * invDet;
+				_mNormalMatrix[8] = c22 * invDet;
+				}
 
 			if(bNormalize) {
 				m3dNormalizeVector3(&_mNormalMatrix[0]);
