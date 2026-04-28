@@ -175,15 +175,21 @@ class M3DFrustum
 
             // The Matrix
    			// X Column
-	   		memcpy(rotMat, vCross, sizeof(float)*3);
+	   		rotMat[0] = vCross[0];
+	   		rotMat[1] = vCross[1];
+	   		rotMat[2] = vCross[2];
             rotMat[3] = 0.0f;
            
             // Y Column
-		   	memcpy(&rotMat[4], vUp, sizeof(float)*3);
+		   	rotMat[4] = vUp[0];
+		   	rotMat[5] = vUp[1];
+		   	rotMat[6] = vUp[2];
             rotMat[7] = 0.0f;       
                                     
             // Z Column
-		   	memcpy(&rotMat[8], vForward, sizeof(float)*3);
+		   	rotMat[8] = vForward[0];
+		   	rotMat[9] = vForward[1];
+		   	rotMat[10] = vForward[2];
             rotMat[11] = 0.0f;
 
             // Translation

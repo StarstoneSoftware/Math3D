@@ -158,14 +158,14 @@ inline void m3dLoadVector4(M3DVector4d v, const double x, const double y, const 
 
 ////////////////////////////////////////////////////////////////////////////////
 // Copy vector src into vector dst
-inline void	m3dCopyVector2(M3DVector2f dst, const M3DVector2f src) { memcpy(dst, src, sizeof(M3DVector2f)); }
-inline void	m3dCopyVector2(M3DVector2d dst, const M3DVector2d src) { memcpy(dst, src, sizeof(M3DVector2d)); }
+inline void	m3dCopyVector2(M3DVector2f dst, const M3DVector2f src) { dst[0] = src[0]; dst[1] = src[1]; }
+inline void	m3dCopyVector2(M3DVector2d dst, const M3DVector2d src) { dst[0] = src[0]; dst[1] = src[1]; }
 
-inline void	m3dCopyVector3(M3DVector3f dst, const M3DVector3f src) { memcpy(dst, src, sizeof(M3DVector3f)); }
-inline void	m3dCopyVector3(M3DVector3d dst, const M3DVector3d src) { memcpy(dst, src, sizeof(M3DVector3d)); }
+inline void	m3dCopyVector3(M3DVector3f dst, const M3DVector3f src) { dst[0] = src[0]; dst[1] = src[1]; dst[2] = src[2]; }
+inline void	m3dCopyVector3(M3DVector3d dst, const M3DVector3d src) { dst[0] = src[0]; dst[1] = src[1]; dst[2] = src[2]; }
 
-inline void	m3dCopyVector4(M3DVector4f dst, const M3DVector4f src) { memcpy(dst, src, sizeof(M3DVector4f)); }
-inline void	m3dCopyVector4(M3DVector4d dst, const M3DVector4d src) { memcpy(dst, src, sizeof(M3DVector4d)); }
+inline void	m3dCopyVector4(M3DVector4f dst, const M3DVector4f src) { dst[0] = src[0]; dst[1] = src[1]; dst[2] = src[2]; dst[3] = src[3]; }
+inline void	m3dCopyVector4(M3DVector4d dst, const M3DVector4d src) { dst[0] = src[0]; dst[1] = src[1]; dst[2] = src[2]; dst[3] = src[3]; }
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -345,28 +345,28 @@ void m3dLoadIdentity44(M3DMatrix44d m);
 /////////////////////////////////////////////////////////////////////////////
 // Get/Set Column.
 inline void m3dGetMatrixColumn33(M3DVector3f dst, const M3DMatrix33f src, const int column)
-	{ memcpy(dst, src + (3 * column), sizeof(float) * 3); }
+	{ dst[0] = src[(3 * column) + 0]; dst[1] = src[(3 * column) + 1]; dst[2] = src[(3 * column) + 2]; }
 
 inline void m3dGetMatrixColumn33(M3DVector3d dst, const M3DMatrix33d src, const int column)
-	{ memcpy(dst, src + (3 * column), sizeof(double) * 3); }
+	{ dst[0] = src[(3 * column) + 0]; dst[1] = src[(3 * column) + 1]; dst[2] = src[(3 * column) + 2]; }
 
 inline void m3dSetMatrixColumn33(M3DMatrix33f dst, const M3DVector3f src, const int column)
-	{ memcpy(dst + (3 * column), src, sizeof(float) * 3); }
+	{ dst[(3 * column) + 0] = src[0]; dst[(3 * column) + 1] = src[1]; dst[(3 * column) + 2] = src[2]; }
 
 inline void m3dSetMatrixColumn33(M3DMatrix33d dst, const M3DVector3d src, const int column)
-	{ memcpy(dst + (3 * column), src, sizeof(double) * 3); }
+	{ dst[(3 * column) + 0] = src[0]; dst[(3 * column) + 1] = src[1]; dst[(3 * column) + 2] = src[2]; }
 
 inline void m3dGetMatrixColumn44(M3DVector4f dst, const M3DMatrix44f src, const int column)
-	{ memcpy(dst, src + (4 * column), sizeof(float) * 4); }
+	{ dst[0] = src[(4 * column) + 0]; dst[1] = src[(4 * column) + 1]; dst[2] = src[(4 * column) + 2]; dst[3] = src[(4 * column) + 3]; }
 
 inline void m3dGetMatrixColumn44(M3DVector4d dst, const M3DMatrix44d src, const int column)
-	{ memcpy(dst, src + (4 * column), sizeof(double) * 4); }
+	{ dst[0] = src[(4 * column) + 0]; dst[1] = src[(4 * column) + 1]; dst[2] = src[(4 * column) + 2]; dst[3] = src[(4 * column) + 3]; }
 
 inline void m3dSetMatrixColumn44(M3DMatrix44f dst, const M3DVector4f src, const int column)
-	{ memcpy(dst + (4 * column), src, sizeof(float) * 4); }
+	{ dst[(4 * column) + 0] = src[0]; dst[(4 * column) + 1] = src[1]; dst[(4 * column) + 2] = src[2]; dst[(4 * column) + 3] = src[3]; }
 
 inline void m3dSetMatrixColumn44(M3DMatrix44d dst, const M3DVector4d src, const int column)
-	{ memcpy(dst + (4 * column), src, sizeof(double) * 4); }
+	{ dst[(4 * column) + 0] = src[0]; dst[(4 * column) + 1] = src[1]; dst[(4 * column) + 2] = src[2]; dst[(4 * column) + 3] = src[3]; }
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -374,33 +374,33 @@ inline void m3dSetMatrixColumn44(M3DMatrix44d dst, const M3DVector4d src, const 
 // Extracts the rotation matrix (3x3) from a 4x4 matrix
 inline void m3dExtractRotationMatrix33(M3DMatrix33f dst, const M3DMatrix44f src)
 	{	
-	memcpy(dst, src, sizeof(float) * 3); // X column
-	memcpy(dst + 3, src + 4, sizeof(float) * 3); // Y column
-	memcpy(dst + 6, src + 8, sizeof(float) * 3); // Z column
+	dst[0] = src[0]; dst[1] = src[1]; dst[2] = src[2];
+	dst[3] = src[4]; dst[4] = src[5]; dst[5] = src[6];
+	dst[6] = src[8]; dst[7] = src[9]; dst[8] = src[10];
 	}
 
 // Ditto above, but for doubles
 inline void m3dExtractRotationMatrix33(M3DMatrix33d dst, const M3DMatrix44d src)
 	{
-	memcpy(dst, src, sizeof(double) * 3); // X column
-	memcpy(dst + 3, src + 4, sizeof(double) * 3); // Y column
-	memcpy(dst + 6, src + 8, sizeof(double) * 3); // Z column
+	dst[0] = src[0]; dst[1] = src[1]; dst[2] = src[2];
+	dst[3] = src[4]; dst[4] = src[5]; dst[5] = src[6];
+	dst[6] = src[8]; dst[7] = src[9]; dst[8] = src[10];
 	}
 
 // Inject Rotation (3x3) into a full 4x4 matrix...
 inline void m3dInjectRotationMatrix44(M3DMatrix44f dst, const M3DMatrix33f src)
 	{
-	memcpy(dst, src, sizeof(float) * 3);
-	memcpy(dst + 4, src + 3, sizeof(float) * 3);
-	memcpy(dst + 8, src + 6, sizeof(float) * 3);
+	dst[0] = src[0]; dst[1] = src[1]; dst[2] = src[2];
+	dst[4] = src[3]; dst[5] = src[4]; dst[6] = src[5];
+	dst[8] = src[6]; dst[9] = src[7]; dst[10] = src[8];
 	}
 
 // Ditto above for doubles
 inline void m3dInjectRotationMatrix44(M3DMatrix44d dst, const M3DMatrix33d src)
 	{
-	memcpy(dst, src, sizeof(double) * 3);
-	memcpy(dst + 4, src + 3, sizeof(double) * 3);
-	memcpy(dst + 8, src + 6, sizeof(double) * 3);
+	dst[0] = src[0]; dst[1] = src[1]; dst[2] = src[2];
+	dst[4] = src[3]; dst[5] = src[4]; dst[6] = src[5];
+	dst[8] = src[6]; dst[9] = src[7]; dst[10] = src[8];
 	}
 
 ////////////////////////////////////////////////////////////////////////////////

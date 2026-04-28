@@ -591,7 +591,9 @@ void m3dProjectXY(M3DVector2f vPointOut, const M3DMatrix44f mModelView, const M3
 	{
     M3DVector4f vBack, vForth;
 
-	memcpy(vBack, vPointIn, sizeof(float)*3);
+	vBack[0] = vPointIn[0];
+	vBack[1] = vPointIn[1];
+	vBack[2] = vPointIn[2];
 	vBack[3] = 1.0f;
     
     m3dTransformVector4(vForth, vBack, mModelView);
@@ -622,7 +624,9 @@ void m3dProjectXYZ(M3DVector3f vPointOut, const M3DMatrix44f mModelView, const M
 	{
     M3DVector4f vBack, vForth;
 
-	memcpy(vBack, vPointIn, sizeof(float)*3);
+	vBack[0] = vPointIn[0];
+	vBack[1] = vPointIn[1];
+	vBack[2] = vPointIn[2];
 	vBack[3] = 1.0f;
     
     m3dTransformVector4(vForth, vBack, mModelView);

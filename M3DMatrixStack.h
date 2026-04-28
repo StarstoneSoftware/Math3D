@@ -129,7 +129,9 @@ class M3DMatrixStack
 		void Translatev(const M3DVector3f vTranslate) {
 			M3DMatrix44f mTemp, mTranslate;
 			m3dLoadIdentity44(mTranslate);
-            memcpy(&mTranslate[12], vTranslate, sizeof(float) * 3);
+            mTranslate[12] = vTranslate[0];
+            mTranslate[13] = vTranslate[1];
+            mTranslate[14] = vTranslate[2];
 			m3dCopyMatrix44(mTemp, pStack[stackPointer]);
 			m3dMatrixMultiply44(pStack[stackPointer], mTemp, mTranslate);
 			}

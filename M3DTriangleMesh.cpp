@@ -147,9 +147,14 @@ void M3DTriangleMesh::AddTriangle(M3DVector3f verts[3], M3DVector3f vNorms[3], M
         // No match for this vertex, add to end of list
         if(iMatch == nNumVerts && nNumVerts < nMaxIndexes && nNumIndexes < nMaxIndexes && vNorms && pNorms && pTexCoords)
             {
-            memcpy(pVerts[nNumVerts], verts[iVertex], sizeof(M3DVector3f));
-            memcpy(pNorms[nNumVerts], vNorms[iVertex], sizeof(M3DVector3f));
-            memcpy(pTexCoords[nNumVerts], vTexCoords[iVertex], sizeof(M3DVector2f));
+            pVerts[nNumVerts][0] = verts[iVertex][0];
+            pVerts[nNumVerts][1] = verts[iVertex][1];
+            pVerts[nNumVerts][2] = verts[iVertex][2];
+            pNorms[nNumVerts][0] = vNorms[iVertex][0];
+            pNorms[nNumVerts][1] = vNorms[iVertex][1];
+            pNorms[nNumVerts][2] = vNorms[iVertex][2];
+            pTexCoords[nNumVerts][0] = vTexCoords[iVertex][0];
+            pTexCoords[nNumVerts][1] = vTexCoords[iVertex][1];
             
             pIndexes[nNumIndexes] = nNumVerts;
             nNumIndexes++; 
