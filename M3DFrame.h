@@ -55,8 +55,8 @@ class M3DFrame
 			// Up is up (+Y)
             vUp[0] = 0.0f; vUp[1] = 1.0f; vUp[2] = 0.0f;
 
-			// Forward is -Z (default OpenGL)
-            vForward[0] = 0.0f; vForward[1] = 0.0f; vForward[2] = -1.0f;
+			// Forward is +Z for object frames.
+            vForward[0] = 0.0f; vForward[1] = 0.0f; vForward[2] = 1.0f;
 			}
 
 
@@ -100,7 +100,7 @@ class M3DFrame
         // Get Axes
         inline void GetZAxis(M3DVector3f vVector) { GetForwardVector(vVector); }
         inline void GetYAxis(M3DVector3f vVector) { GetUpVector(vVector); }
-        inline void GetXAxis(M3DVector3f vVector) { m3dCrossProduct3(vVector, vForward, vUp); }
+        inline void GetXAxis(M3DVector3f vVector) { m3dCrossProduct3(vVector, vUp, vForward); }
 
 
 		/////////////////////////////////////////////////////////////
@@ -136,7 +136,7 @@ class M3DFrame
                     {
                     // Move along direction of right vector
                     M3DVector3f vCross;
-                    m3dCrossProduct3(vCross, vForward, vUp);
+                    m3dCrossProduct3(vCross, vUp, vForward);
 
                     vOrigin[0] += vCross[0] * fDelta;
                     vOrigin[1] += vCross[1] * fDelta;
@@ -150,7 +150,7 @@ class M3DFrame
 			{
 			// Calculate the right side (x) vector, drop it right into the matrix
 			M3DVector3f vXAxis;
-			m3dCrossProduct3(vXAxis, vForward, vUp);
+			m3dCrossProduct3(vXAxis, vUp, vForward);
 
 			// Set matrix column does not fill in the fourth value...
             m3dSetMatrixColumn44(matrix, vXAxis, 0);
@@ -273,7 +273,7 @@ class M3DFrame
 			M3DVector3f  rotVec;
 
 			// Get the local X axis
-			m3dCrossProduct3(localX, vForward, vUp);
+			m3dCrossProduct3(localX, vUp, vForward);
 
 			// Make a Rotation Matrix
 			m3dRotationMatrix33(rotMat, fAngle, localX[0], localX[1], localX[2]);
@@ -294,10 +294,10 @@ class M3DFrame
 			M3DVector3f vCross;
 
 			// Calculate cross product of up and forward vectors
-			m3dCrossProduct3(vCross, vForward, vUp);
+			m3dCrossProduct3(vCross, vUp, vForward);
 
 			// Use result to recalculate forward vector
-			m3dCrossProduct3(vForward, vUp, vCross);	
+			m3dCrossProduct3(vForward, vCross, vUp);	
 
 			// Also check for unit length...
 			m3dNormalizeVector3(vUp);
